@@ -9,6 +9,7 @@ public class PlayerControl : MonoBehaviour
     private float dragDistance;  //minimum distance for a swipe to be registered
     public int currentPos = 2;
     public static PlayerControl Instance;
+    public bool isQTE = false;
     private void Awake()
     {
         if (Instance == null) { Instance = this; }
@@ -21,68 +22,71 @@ public class PlayerControl : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount == 1) 
+        if (isQTE == false)
         {
-            Touch touch = Input.GetTouch(0); 
-            if (touch.phase == TouchPhase.Began) 
+            if (Input.touchCount == 1)
             {
-                fp = touch.position;
-                lp = touch.position;
-            }
-            else if (touch.phase == TouchPhase.Moved) 
-            {
-                lp = touch.position;
-            }
-            else if (touch.phase == TouchPhase.Ended) 
-            {
-                lp = touch.position;  
-
-                if (Mathf.Abs(lp.x - fp.x) > dragDistance || Mathf.Abs(lp.y - fp.y) > dragDistance)
+                Touch touch = Input.GetTouch(0);
+                if (touch.phase == TouchPhase.Began)
                 {
-                    if (Mathf.Abs(lp.x - fp.x) > Mathf.Abs(lp.y - fp.y))
-                    {   
-                        if ((lp.x > fp.x)) 
-                        {   
-                            Debug.Log("Right Swipe");
-                            try
+                    fp = touch.position;
+                    lp = touch.position;
+                }
+                else if (touch.phase == TouchPhase.Moved)
+                {
+                    lp = touch.position;
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    lp = touch.position;
+
+                    if (Mathf.Abs(lp.x - fp.x) > dragDistance || Mathf.Abs(lp.y - fp.y) > dragDistance)
+                    {
+                        if (Mathf.Abs(lp.x - fp.x) > Mathf.Abs(lp.y - fp.y))
+                        {
+                            if ((lp.x > fp.x))
                             {
-                                this.transform.position = PositionReference.Instance.PlayerPositonList[currentPos+1].position;
-                                currentPos++;
+                                Debug.Log("Right Swipe");
+                                try
+                                {
+                                    this.transform.position = PositionReference.Instance.PlayerPositonList[currentPos + 1].position;
+                                    currentPos++;
+                                }
+                                catch
+                                {
+                                    Debug.Log("already rightmost");
+                                }
                             }
-                            catch
-                            {
-                                Debug.Log("already rightmost");
+                            else
+                            {   //Left swipe
+                                Debug.Log("Left Swipe");
+                                try
+                                {
+                                    this.transform.position = PositionReference.Instance.PlayerPositonList[currentPos - 1].position;
+                                    currentPos--;
+                                }
+                                catch
+                                {
+                                    Debug.Log("already leftmost");
+                                }
                             }
                         }
                         else
-                        {   //Left swipe
-                            Debug.Log("Left Swipe");
-                            try
+                        {
+                            if (lp.y > fp.y)
                             {
-                                this.transform.position = PositionReference.Instance.PlayerPositonList[currentPos - 1].position;
-                                currentPos--;
+                                Debug.Log("Up Swipe");
                             }
-                            catch
+                            else
                             {
-                                Debug.Log("already leftmost");
+                                Debug.Log("Down Swipe");
                             }
                         }
                     }
                     else
-                    {  
-                        if (lp.y > fp.y)  
-                        {   
-                            Debug.Log("Up Swipe");
-                        }
-                        else
-                        {   
-                            Debug.Log("Down Swipe");
-                        }
+                    {
+                        Debug.Log("Tap");
                     }
-                }
-                else
-                {   
-                    Debug.Log("Tap");
                 }
             }
         }

@@ -4,49 +4,72 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    int currentpos = 3;
-    float intervalSec = 1.0f;
-    float alpha = 0.2f;
-    public void Init(int pos, float interval)
+    float speedMult;
+    int startPos;
+    int difficulty;
+    public void Init(float speedmult, int startpos, int diff)
     {
-        this.transform.position = PositionReference.Instance.ObjPositionList[pos].position;
-        currentpos = pos;
-        intervalSec = interval;
+        speedMult = speedmult;
+        startPos = startpos;
+        difficulty = diff;
+    }
+    public void disableObs() //for items
+    {
+        this.gameObject.GetComponent<Obstacle>().enabled = false;
     }
     // Start is called before the first frame update
     void Start()
     {
-        //this.transform.position = PositionReference.Instance.ObjPositionList[3].position;
-        //currentpos = 3;
-        StartCoroutine(move());
+        this.gameObject.GetComponent<Animator>().speed = speedMult;
     }
-
-    IEnumerator move()
+    public void OnAnimationEnd()
     {
-        while (true)
+        if(PlayerControl.Instance.currentPos==startPos)
         {
-            yield return new WaitForSeconds(intervalSec);
-            Debug.Log(currentpos);
-            try
+            Debug.Log("contact!");
+            //Ãæµ¹
+            switch(difficulty - PlayerScript.Instance.playerLevel)
             {
-                this.transform.position = PositionReference.Instance.ObjPositionList[currentpos + 7].position;
-                currentpos += 7;
-                alpha += 0.2f;
-                this.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, alpha);
+                case 4:
+                    PlayerScript.Instance.changePlayerHealth(-80);
+                    break;
+                case 3:
+                    PlayerScript.Instance.changePlayerHealth(-30);
+                    break;
+                case 2:
+                    //qte
+                    CircleQTE.Instance.startQTE(40, 1);
+                    CircleQTE.Instance.onQTEFail.AddListener(delegate { PlayerScript.Instance.changePlayerHealth(-10); });
+                    CircleQTE.Instance.onQTESuccess.AddListener(kick);
+                    break;
+                case 1:
+                    //qte
+                    CircleQTE.Instance.startQTE(40, 1.5f);
+                    CircleQTE.Instance.onQTEFail.AddListener(delegate { PlayerScript.Instance.changePlayerHealth(-5); });
+                    CircleQTE.Instance.onQTESuccess.AddListener(kick);
+                    break;
+                default:
+                    kick();
+                    break;
             }
-            catch
-            {
-                break;
-            }
+           
         }
-        if (PlayerControl.Instance.currentPos + 1 == currentpos % 7)
-        {
-            Debug.Log("crash!");
-        }
-        Destroy(this.gameObject);
+        Destroy(this.gameObject); //destroy animation
     }
-    public void setInterval(float interval)
+    void kick()
     {
-        intervalSec = interval;
+        Debug.Log("kick!");
+        if (difficulty - PlayerScript.Instance.playerLevel > 0)
+        {
+            PlayerScript.Instance.addPlayerLevel(1.5f);
+        }
+        else if(difficulty - PlayerScript.Instance.playerLevel < 0)
+        {
+            PlayerScript.Instance.addPlayerLevel(1);
+        }
+        else
+        {
+            PlayerScript.Instance.addPlayerLevel(0.5f);
+        }
     }
 }

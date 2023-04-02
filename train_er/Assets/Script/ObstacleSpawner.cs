@@ -4,13 +4,30 @@ using UnityEngine;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject obstaclePrefab;
+    [SerializeField] List<GameObject> obstaclePrefabs;
     [SerializeField] float interval;
-    int[] randoms = { 1, 2, 3, 4, 5 };
+    int[] randoms = { 0, 1, 2, 3, 4 };
+    int[,] difficulties = { { 30, 60, 80, 95, 100 }, { 25, 50, 70, 90, 100 }, { 20, 40, 60, 85, 100 } };
     List<GameObject> spawnedObjs = new List<GameObject>();
+    [SerializeField] List<Sprite> difficultySprites;
     private void Start()
     {
         StartCoroutine(spawn());
+        StartCoroutine(difficultyIncrease());
+    }
+    IEnumerator difficultyIncrease()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(10);
+            for (int i=0;i<3;i++)
+            {
+                difficulties[i, 0]--;
+                difficulties[i, 1]-=2;
+                difficulties[i, 2]-=2;
+                difficulties[i, 3]--;
+            }
+        }
     }
     IEnumerator spawn()
     {
@@ -21,9 +38,21 @@ public class ObstacleSpawner : MonoBehaviour
             shuffle();
             for (int i = 0; i < rand; i++)
             {
-                GameObject g = Instantiate(obstaclePrefab);
+                int randDiff = Random.Range(1, 100);
+                int diff = 0;
+                for(int j=0;j<5;j++)
+                {
+                    if(difficulties[PlayerScript.Instance.playerLevel-1,j]>=randDiff)
+                    {
+                        diff = j + 1;
+                        break;
+                    }
+                }
+                
+                GameObject g = Instantiate(obstaclePrefabs[randoms[i]]);
+                g.GetComponent<SpriteRenderer>().sprite = difficultySprites[diff - 1];
                 spawnedObjs.Add(g);
-                g.GetComponent<Obstacle>().Init(randoms[i], interval);
+                g.GetComponent<Obstacle>().Init(1, randoms[i], diff);
             }
         }
     }
