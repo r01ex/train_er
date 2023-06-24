@@ -4,31 +4,35 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    float speedMult;
-    int startPos;
+    [SerializeField] SpriteRenderer bodySpriteRenderer;
+    [SerializeField] SpriteRenderer handSpriteRenderer;
     int difficulty;
-    public void Init(float speedmult, int startpos, int diff)
+    public void Init(int diff, Transform t, int layer, Sprite bodysprite, Sprite handsprite, bool isside)
     {
-        speedMult = speedmult;
-        startPos = startpos;
         difficulty = diff;
-    }
-    public void disableObs() //for items
-    {
-        this.gameObject.GetComponent<Obstacle>().enabled = false;
+        bodySpriteRenderer.sprite = bodysprite;
+        if(isside)
+        {
+            handSpriteRenderer.sprite = handsprite;
+            handSpriteRenderer.gameObject.SetActive(true);
+            handSpriteRenderer.sortingOrder = layer + 50;
+        }
+        bodySpriteRenderer.sortingOrder = layer;
+        this.transform.position = t.position;
+        this.transform.localScale = t.localScale;
     }
     // Start is called before the first frame update
     void Start()
     {
-        this.gameObject.GetComponent<Animator>().speed = speedMult;
+        
     }
-    public void OnAnimationEnd()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(PlayerControl.Instance.currentPos==startPos)
+        if (collision.tag == "Player")
         {
-            Debug.Log("contact!");
+            Debug.Log("contact! with user");
             //Ãæµ¹
-            switch(difficulty - PlayerScript.Instance.playerLevel)
+            switch (difficulty - PlayerScript.Instance.playerLevel)
             {
                 case 4:
                     PlayerScript.Instance.changePlayerHealth(-80);
@@ -52,9 +56,9 @@ public class Obstacle : MonoBehaviour
                     kick();
                     break;
             }
-           
+
+            Destroy(this.gameObject); //destroy animation
         }
-        Destroy(this.gameObject); //destroy animation
     }
     void kick()
     {

@@ -1,18 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
 
 public class ObstacleSpawner : MonoBehaviour
 {
-    [SerializeField] List<GameObject> obstaclePrefabs;
-    [SerializeField] float interval;
+    [SerializeField] GameObject obstaclePrefab;
     int[] randoms = { 0, 1, 2, 3, 4 };
-    int[,] difficulties = { { 30, 60, 80, 95, 100 }, { 25, 50, 70, 90, 100 }, { 20, 40, 60, 85, 100 } };
-    List<GameObject> spawnedObjs = new List<GameObject>();
-    [SerializeField] List<Sprite> difficultySprites;
+    int[,] difficulties = { { 50, 70, 85, 95, 100 }, { 15, 65, 85, 95, 100 }, { 10, 20, 70, 85, 100 } };
+    int[] choose_row_randpool = { 20, 70, 100, 100, 100 };
+    int[] lanelock = { 0, 0, 0, 0, 0 };
+    
+    [SerializeField] List<Sprite> bodySprites;
+    [SerializeField] List<Sprite> handSprites;
+    [SerializeField] int nofSideObstacle;
+    [SerializeField] int nofMidObstacle;
+    [SerializeField] GameObject chunkPrefab;
+
+    int baselayer = int.MaxValue-100;
+    public static ObstacleSpawner Instance;
+    private void Awake()
+    {
+        if (Instance == null) { Instance = this; }
+        else { Destroy(gameObject); }
+    }
     private void Start()
     {
-        StartCoroutine(spawn());
+        spawn();
         StartCoroutine(difficultyIncrease());
     }
     IEnumerator difficultyIncrease()
@@ -29,38 +44,123 @@ public class ObstacleSpawner : MonoBehaviour
             }
         }
     }
-    IEnumerator spawn()
+    public void spawn()
     {
-        while(true)
+
+        GameObject chunk = Instantiate(chunkPrefab);
+        chunk.GetComponent<Chunk>().Init(baselayer, baselayer + 40);
+        int randforRow = UnityEngine.Random.Range(0, 100);
+        int NofRow = 1;
+        for (int i = 0; i < 5; i++)
         {
-            yield return new WaitForSeconds(interval);
-            int rand = Random.Range(1, 3);
-            shuffle();
-            for (int i = 0; i < rand; i++)
+            if (choose_row_randpool[i] > randforRow)
             {
-                int randDiff = Random.Range(1, 100);
-                int diff = 0;
-                for(int j=0;j<5;j++)
+                break;
+            }
+            NofRow++;
+        }
+        Debug.Log("row number: " + NofRow);
+        shuffle();
+        Array.Sort(randoms, 0, NofRow);
+        int[] selectedRows = new int[NofRow];
+        Array.Copy(randoms, selectedRows, NofRow);
+        foreach (int e in selectedRows)
+        {
+            Debug.Log("selected row number: " + e);
+        }
+        Array.Reverse(selectedRows);
+        int currentrow = 0;
+        for (int i = 4; i >= 0; i--) //row
+        {
+            if (currentrow < NofRow && i == selectedRows[currentrow])
+            {
+                Debug.Log("now spawing row : " + i);
+                int rand = UnityEngine.Random.Range(3, 6);
+                shuffle();
+                for (int j = 0; j < rand; j++) //col
                 {
-                    if(difficulties[PlayerScript.Instance.playerLevel-1,j]>=randDiff)
+                    Debug.Log("now spawing col : " + randoms[j]);
+                    if (lanelock[randoms[j]] > 0)
                     {
-                        diff = j + 1;
-                        break;
+                        Debug.Log("lane locked");
                     }
+                    else
+                    {
+                        bool lanelockflag = true;
+                        int randsprite;
+                        if (randoms[j] == 0 || randoms[j] == 4)
+                        {
+                            randsprite = UnityEngine.Random.Range(0, nofSideObstacle);
+                            if (randsprite == 1) //size2
+                            {
+                                if(i==0)
+                                {
+                                    //cannot go in here
+                                    lanelockflag = false;
+                                }
+                                lanelock[randoms[j]] = 2;
+                            }
+                        }
+                        else
+                        {
+                            randsprite = UnityEngine.Random.Range(0, nofMidObstacle);
+                            if(randsprite==1) //size3
+                            {
+                                if (i <= 1)
+                                {
+                                    //cannot go in here
+                                    lanelockflag = false;
+                                }
+                                lanelock[randoms[j]] = 3;
+                            }
+                        }
+                        if (lanelockflag == true)
+                        {
+                            Vector3 desiredPosition = chunk.GetComponent<Chunk>().getpos(i, randoms[j]);
+                            GameObject g = Instantiate(obstaclePrefab, chunk.transform, false);
+                            g.name = "row " + i + " col " + randoms[j];
+                            Transform obstacleTransform = chunk.GetComponent<Chunk>().GetTransform(randoms[j]);
+                            obstacleTransform.localPosition = desiredPosition;
+                            int randDiff = UnityEngine.Random.Range(1, 100);
+                            int diff = 0;
+                            for (int k = 0; k < 5; k++)
+                            {
+                                if (difficulties[PlayerScript.Instance.playerLevel - 1, k] >= randDiff)
+                                {
+                                    diff = k + 1;
+                                    break;
+                                }
+                            }
+                            int layer = baselayer + i;
+                            if (randoms[j] == 0 || randoms[j] == 4)
+                            {
+                                g.GetComponent<Obstacle>().Init(diff, obstacleTransform, layer, bodySprites[randsprite], handSprites[randsprite], true);
+                            }
+                            else
+                            {
+                                g.GetComponent<Obstacle>().Init(diff, obstacleTransform, layer, bodySprites[randsprite + nofSideObstacle], handSprites[randsprite + nofSideObstacle], false);
+                            }
+                        }
+                    }
+
                 }
-                
-                GameObject g = Instantiate(obstaclePrefabs[randoms[i]]);
-                g.GetComponent<SpriteRenderer>().sprite = difficultySprites[diff - 1];
-                spawnedObjs.Add(g);
-                g.GetComponent<Obstacle>().Init(1, randoms[i], diff);
+                currentrow++;
+            }
+            for (int lockindex = 0; lockindex < 5; lockindex++)
+            {
+                if (lanelock[lockindex] > 0)
+                {
+                    lanelock[lockindex]--;
+                }
             }
         }
+        baselayer -= 50;
     }
     void shuffle()
     {
         for(int i=0;i<5;i++)
         {
-            int rand = Random.Range(0, 4);
+            int rand = UnityEngine.Random.Range(0, 4);
             int t = randoms[i];
             randoms[i] = randoms[rand];
             randoms[rand] = t;

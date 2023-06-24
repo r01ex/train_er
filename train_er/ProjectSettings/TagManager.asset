@@ -38,6 +38,24 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: background
+    uniqueID: 2469711481
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: chunk0
+    uniqueID: 3176711693
+    locked: 0
+  - name: chunk1
+    uniqueID: 2446684415
+    locked: 0
+  - name: chunk2
+    uniqueID: 769946795
+    locked: 0
+  - name: ui
+    uniqueID: 3666131415
+    locked: 0
+  - name: Player
+    uniqueID: 2169322815
     locked: 0

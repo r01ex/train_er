@@ -20,6 +20,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] Slider levelBar;
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] Slider healthBar;
+    [SerializeField] TextMeshProUGUI lifeText;
     public void addPlayerLevel(float amount)
     {
         if (playerLevel < 3)
@@ -49,6 +50,7 @@ public class PlayerScript : MonoBehaviour
     {
         playerHealth = Mathf.Clamp(playerHealth + amount, 0, maxHealth);
         healthBar.value = playerHealth / maxHealth;
+        lifeText.text = playerHealth.ToString() + " / " + maxHealth.ToString();
     }
     // Start is called before the first frame update
     void Start()
