@@ -35,6 +35,7 @@ public class PlayerScript : MonoBehaviour
                 playerLevel++;
                 //levelText.text = playerLevel < 3 ? playerLevel.ToString() : "MAX";
                 levelText.text = playerLevel.ToString();
+                ObstacleSpawner.Instance.playerlevelup(playerLevel);
             }
             if (playerLevel != 3)
             {

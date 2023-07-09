@@ -9,17 +9,21 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] GameObject obstaclePrefab;
     int[] randoms = { 0, 1, 2, 3, 4 };
     int[,] difficulties = { { 50, 70, 85, 95, 100 }, { 15, 65, 85, 95, 100 }, { 10, 20, 70, 85, 100 } };
-    int[] choose_row_randpool = { 20, 70, 100, 100, 100 };
+    int[] choose_row_randpool = { 15, 40, 80, 100, 100 };
     int[] lanelock = { 0, 0, 0, 0, 0 };
-    
+    float[] animationspeedMult = { 0.89f, 1f, 1.14f, 1.33f, 1.6f };
+    List<GameObject> allchunks;
     [SerializeField] List<Sprite> bodySprites;
     [SerializeField] List<Sprite> handSprites;
     [SerializeField] int nofSideObstacle;
     [SerializeField] int nofMidObstacle;
     [SerializeField] GameObject chunkPrefab;
+    [SerializeField] GameObject doorchunkPrefab;
 
     int baselayer = int.MaxValue-100;
     public static ObstacleSpawner Instance;
+
+    int chunkcounter = 0;
     private void Awake()
     {
         if (Instance == null) { Instance = this; }
@@ -44,13 +48,46 @@ public class ObstacleSpawner : MonoBehaviour
             }
         }
     }
+    public void playerlevelup(int levelUpto)
+    {
+        for (int i = allchunks.Count - 1; i >= 0; i--)
+        {
+            if (allchunks[i] == null || !allchunks[i].activeSelf)
+            {
+                allchunks.RemoveAt(i);
+            }
+        }
+        foreach(GameObject c in allchunks)
+        {
+            c.GetComponent<Animator>().speed = animationspeedMult[levelUpto - 1];
+        }
+    }
     public void spawn()
+    {
+        if(chunkcounter<3) //+rand
+        {
+            spawnobschunk();
+            chunkcounter++;
+        }
+        else
+        {
+            spawndoorchunk();
+            chunkcounter = 0;
+        }
+    }
+    public void spawndoorchunk()
+    {
+        GameObject doorchunk = Instantiate(doorchunkPrefab);
+        doorchunk.GetComponent<DoorChunk>().Init(baselayer);
+        baselayer -= 10;
+    }
+    public void spawnobschunk()
     {
 
         GameObject chunk = Instantiate(chunkPrefab);
         chunk.GetComponent<Chunk>().Init(baselayer, baselayer + 40);
         int randforRow = UnityEngine.Random.Range(0, 100);
-        int NofRow = 1;
+        int NofRow = 0;
         for (int i = 0; i < 5; i++)
         {
             if (choose_row_randpool[i] > randforRow)
@@ -75,7 +112,7 @@ public class ObstacleSpawner : MonoBehaviour
             if (currentrow < NofRow && i == selectedRows[currentrow])
             {
                 Debug.Log("now spawing row : " + i);
-                int rand = UnityEngine.Random.Range(3, 6);
+                int rand = UnityEngine.Random.Range(1, 4);
                 shuffle();
                 for (int j = 0; j < rand; j++) //col
                 {

@@ -8,6 +8,7 @@ public class Chunk : MonoBehaviour
     [SerializeField] SpriteRenderer lefttop;
     [SerializeField] SpriteRenderer rightlow;
     [SerializeField] SpriteRenderer righttop;
+    [SerializeField] Animator animator;
 
     [SerializeField] List<Transform> topTransforms;
     [SerializeField] List<Transform> lowTransforms;
