@@ -7,9 +7,14 @@ public class CircleQTE : MonoBehaviour
 {
     public static CircleQTE Instance;
     [SerializeField] Slider sliderSpinner;
-    [SerializeField] Slider sliderSuccess;
-    [SerializeField] GameObject sliderSuccessParent;
+    [SerializeField] Slider sliderSuccess1;
+    [SerializeField] Slider sliderSuccess2;
+    [SerializeField] Slider sliderSuccess3;
+    [SerializeField] GameObject sliderSuccessParent1;
+    [SerializeField] GameObject sliderSuccessParent2;
+    [SerializeField] GameObject sliderSuccessParent3;
     [SerializeField] GameObject QTEcanvas;
+    [SerializeField] RawImage itemimgPlaceholder;
     Coroutine spin;
     float successRot;
     public UnityEvent onQTESuccess;
@@ -44,10 +49,15 @@ public class CircleQTE : MonoBehaviour
     {
         Debug.Log("in select success area");
         Time.timeScale = 0;
-        successRot = Random.Range(areaAngle-185, 160);
-        sliderSuccess.value = areaAngle / 360;
-        Debug.Log("success Rot is " + successRot);
-        sliderSuccessParent.transform.rotation = Quaternion.Euler(0, 0, successRot);
+        successRot = Random.Range(0, 60);
+        sliderSuccess1.value = areaAngle / 360;
+        sliderSuccess2.value = areaAngle / 360;
+        sliderSuccess3.value = areaAngle / 360;
+        sliderSuccessParent1.transform.Rotate(new Vector3(0, 0, successRot));
+        successRot = Random.Range(0, 30);
+        sliderSuccessParent2.transform.Rotate(new Vector3(0, 0, successRot));
+        successRot = Random.Range(0, 60);
+        sliderSuccessParent3.transform.Rotate(new Vector3(0, 0, successRot));
     }
     void startSpin(float spintime)
     {
@@ -73,10 +83,22 @@ public class CircleQTE : MonoBehaviour
         Debug.Log("stop spin called");
         StopCoroutine(spin);
         Time.timeScale = 1;
-        if (sliderSuccessParent.transform.rotation.z > sliderSpinner.transform.rotation.z && sliderSuccessParent.transform.rotation.z-sliderSuccess.value*360 < sliderSpinner.transform.rotation.z - sliderSpinner.value * 360)
+        if (sliderSuccessParent1.transform.rotation.z > sliderSpinner.transform.rotation.z && sliderSuccessParent1.transform.rotation.z-sliderSuccess1.value*360 < sliderSpinner.transform.rotation.z - sliderSpinner.value * 360)
         {
             onQTESuccess.Invoke();
-            Debug.Log("success!");
+            Debug.Log("slider1!");
+            //success
+        }
+        if (sliderSuccessParent2.transform.rotation.z > sliderSpinner.transform.rotation.z && sliderSuccessParent2.transform.rotation.z - sliderSuccess2.value * 360 < sliderSpinner.transform.rotation.z - sliderSpinner.value * 360)
+        {
+            onQTESuccess.Invoke();
+            Debug.Log("slider2!");
+            //success
+        }
+        if (sliderSuccessParent3.transform.rotation.z > sliderSpinner.transform.rotation.z && sliderSuccessParent3.transform.rotation.z - sliderSuccess3.value * 360 < sliderSpinner.transform.rotation.z - sliderSpinner.value * 360)
+        {
+            onQTESuccess.Invoke();
+            Debug.Log("slider3!");
             //success
         }
         else
