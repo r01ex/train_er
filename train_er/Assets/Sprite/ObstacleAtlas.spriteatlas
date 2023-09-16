@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ObstacleAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 4096
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: bea5bc5d66ade764aa84757f5d7ee5b5, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: b22f328063c8c6844b98e05f4a417c1f, type: 3}
+  - {fileID: 21300000, guid: f11e770151999d546ba4cd7c1d9cc141, type: 3}
+  - {fileID: 21300000, guid: 26a05b5185399e242ab50b737497f35e, type: 3}
+  - {fileID: 21300000, guid: d924f0a10e852ca4fbf6f4d1077e4bdf, type: 3}
+  - {fileID: 21300000, guid: a7299dc11f543314cad9472c10e8a414, type: 3}
+  - {fileID: 21300000, guid: 9da625222cbc9f74cb2f5cd8b831fe23, type: 3}
+  - {fileID: 21300000, guid: 9a1628922e6ff82409d6e1f05ac31173, type: 3}
+  - {fileID: 21300000, guid: e5f6af23f17f8fb418d3af85272304b3, type: 3}
+  - {fileID: 21300000, guid: d4efba93e88a0bb4c9b0f202838eeaae, type: 3}
+  - {fileID: 21300000, guid: 178c23043d725a746b1d36de6db5c7eb, type: 3}
+  - {fileID: 21300000, guid: 1ef52915d48cb2c439dacfc39249c3ec, type: 3}
+  - {fileID: 21300000, guid: d33125c54a0446e4c9b54b12a43368fa, type: 3}
+  - {fileID: 21300000, guid: 29ff54d50d1767f429c97bb8c5a420f4, type: 3}
+  - {fileID: 21300000, guid: faa352f59bfb98647897333902c1a549, type: 3}
+  - {fileID: 21300000, guid: 9f217007577ee5144b7d8ad9fd7b0d4b, type: 3}
+  - {fileID: 21300000, guid: d2a3ee374599b1a49b1e090fda2c0fbe, type: 3}
+  - {fileID: 21300000, guid: 2da309a7958b11647837331b9d9eed48, type: 3}
+  - {fileID: 21300000, guid: 85208718d0e8c3047828c9d5b1ccdb6b, type: 3}
+  - {fileID: 21300000, guid: dfcc9a48cd8f7f941b71d079b2ab0d80, type: 3}
+  - {fileID: 21300000, guid: 24f3f8d8d41c2e4449e8f5f53a525a53, type: 3}
+  - {fileID: 21300000, guid: e9d498e800f65ad4fa9ce488165e5ec9, type: 3}
+  - {fileID: 21300000, guid: 30cc2fc9604b92c4d940ccd1e12ef231, type: 3}
+  - {fileID: 21300000, guid: 06fb52e925cd2ba4fb4b8a6eca6dc184, type: 3}
+  - {fileID: 21300000, guid: 44f708f9816c6b8448350d6787504336, type: 3}
+  - {fileID: 21300000, guid: 15e04aab1d800a04cb658e369cec33d2, type: 3}
+  - {fileID: 21300000, guid: fe861dbb682fe9a44b04fac2a7e6f7de, type: 3}
+  - {fileID: 21300000, guid: 4fbcac4c13f717c458e32bb69bf2b7c7, type: 3}
+  - {fileID: 21300000, guid: 151f475c6e7699049a1cf88611bbb7b7, type: 3}
+  - {fileID: 21300000, guid: 0f11ba5c61325734fb3028dbc5abbbef, type: 3}
+  - {fileID: 21300000, guid: 680d089c1c4c4c14baea4e257b04c33c, type: 3}
+  - {fileID: 21300000, guid: 1a5b90ec33f7b7248bbb3a81915eadcc, type: 3}
+  - {fileID: 21300000, guid: 5148ee0dd08f0c54c88cfdb267a2c643, type: 3}
+  - {fileID: 21300000, guid: 28e0201d1ad42e447ad69a68e5a5aad3, type: 3}
+  - {fileID: 21300000, guid: ef5673dd76685e74d9de2a45c96d9f5f, type: 3}
+  - {fileID: 21300000, guid: b4d6575e1ef5468449d238bdec10ea4e, type: 3}
+  - {fileID: 21300000, guid: 4f9d7c6e270eaa54a9699281da2980ba, type: 3}
+  - {fileID: 21300000, guid: ce28281f536ecc34e9082ca76ad79e59, type: 3}
+  - {fileID: 21300000, guid: e981c72f6a2aaf543b6917813b60f408, type: 3}
+  - {fileID: 21300000, guid: 18b944df0d88f97469c579013c451068, type: 3}
+  - {fileID: 21300000, guid: 5acdeeef134c1a14c9ec805058467697, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - obj_sit_02
+  - obj_sit_03
+  - obj_sit_05
+  - obj_side_07_hand
+  - obj_side_03
+  - obj_side_02
+  - obj_mid_20
+  - obj_side_02_hand
+  - obj_mid_06
+  - obj_mid_18
+  - obj_sit_01
+  - obj_mid_17
+  - obj_mid_14
+  - obj_sit_06
+  - obj_mid_02
+  - obj_mid_05
+  - obj_mid_07
+  - obj_mid_01
+  - obj_mid_12
+  - obj_mid_19
+  - obj_mid_10
+  - obj_mid_09
+  - obj_mid_04
+  - obj_sit_04
+  - obj_side_05_hand
+  - obj_mid_11
+  - obj_side_04
+  - obj_side_08
+  - no_hand_placeholder
+  - obj_side_06
+  - obj_side_03_hand
+  - obj_side_07
+  - obj_side_05
+  - obj_mid_15
+  - obj_mid_08
+  - obj_mid_13
+  - obj_mid_03
+  - obj_side_01_hand
+  - obj_mid_16
+  - obj_side_01
+  m_RenderDataMap: {}
+  m_Tag: ObstacleAtlas
+  m_IsVariant: 0

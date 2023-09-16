@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: backgroundAtas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 4096
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 074e730a655d0f643a9ca8b32067bac8, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 337544e00ab8bd54bb6e228cadc4b6fc, type: 3}
+  - {fileID: 21300000, guid: 0b07d5966a9027e4eb79888b2b18379e, type: 3}
+  - {fileID: 21300000, guid: 5b315d8a9311c1d459db4e7c9782837c, type: 3}
+  - {fileID: 21300000, guid: 4aef02fcd1392584fa933f9696794284, type: 3}
+  - {fileID: 21300000, guid: ddc1af4d477fb9e498b5856f760746e2, type: 3}
+  - {fileID: 21300000, guid: 22a22c5efd6b4f145973d9854872c1e0, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - chair_under
+  - mapline
+  - map
+  - floor_01
+  - chair_upper
+  - door_1
+  m_RenderDataMap: {}
+  m_Tag: backgroundAtas
+  m_IsVariant: 0

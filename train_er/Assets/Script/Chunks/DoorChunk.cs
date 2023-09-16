@@ -12,10 +12,11 @@ public class DoorChunk : MonoBehaviour
     {
         
     }
-    public void Init(int layer)
+    public void Init(int layer, float speed)
     {
         leftdoor.sortingOrder = layer;
         rightdoor.sortingOrder = layer;
+        animator.speed = speed;
     }
     // Update is called once per frame
     void Update()

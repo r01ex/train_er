@@ -19,9 +19,14 @@ public class ObstacleSpawner : MonoBehaviour
     [SerializeField] int nofMidObstacle;
     [SerializeField] GameObject chunkPrefab;
     [SerializeField] GameObject doorchunkPrefab;
-
+    float speed = 0.89f;
+    int chunkCounterforItem = 0;
+    int chunkCounterforLink = 0;
     int baselayer = int.MaxValue-100;
     public static ObstacleSpawner Instance;
+    [SerializeField] GameObject ItemPrefab;
+    [SerializeField] GameObject linkchunkprefab;
+    public bool turnonSprite;
 
     int chunkcounter = 0;
     private void Awake()
@@ -60,32 +65,48 @@ public class ObstacleSpawner : MonoBehaviour
         foreach(GameObject c in allchunks)
         {
             c.GetComponent<Animator>().speed = animationspeedMult[levelUpto - 1];
+            speed = animationspeedMult[levelUpto - 1];
         }
     }
     public void spawn()
     {
-        if(chunkcounter<3) //+rand
+        if (chunkCounterforLink < 13)
         {
-            spawnobschunk();
-            chunkcounter++;
+            if (chunkcounter < 3) //+rand
+            {
+                spawnobschunk();
+                chunkcounter++;
+            }
+            else
+            {
+                spawndoorchunk();
+                chunkcounter = 0;
+            }
+            chunkCounterforLink++;
         }
         else
         {
-            spawndoorchunk();
-            chunkcounter = 0;
+            spawnlinkchunk();
+            chunkCounterforLink = 0;
         }
     }
     public void spawndoorchunk()
     {
         GameObject doorchunk = Instantiate(doorchunkPrefab);
-        doorchunk.GetComponent<DoorChunk>().Init(baselayer);
+        doorchunk.GetComponent<DoorChunk>().Init(baselayer, speed);
         baselayer -= 10;
+    }
+    public void spawnlinkchunk()
+    {
+        GameObject doorchunk = Instantiate(linkchunkprefab);
+        doorchunk.GetComponent<LinkChunk>().Init(baselayer, baselayer + 40, speed);
+        baselayer -= 10;
+        //µÚ¿¡ ³ª¿À´Â°Å ²¯´ÙÄ×´Ù
     }
     public void spawnobschunk()
     {
-
         GameObject chunk = Instantiate(chunkPrefab);
-        chunk.GetComponent<Chunk>().Init(baselayer, baselayer + 40);
+        chunk.GetComponent<Chunk>().Init(baselayer, baselayer + 40, speed);
         int randforRow = UnityEngine.Random.Range(0, 100);
         int NofRow = 0;
         for (int i = 0; i < 5; i++)
@@ -191,7 +212,20 @@ public class ObstacleSpawner : MonoBehaviour
                 }
             }
         }
+        if(chunkCounterforItem>=25)
+        {
+            Debug.LogWarning("item spawned");
+            GameObject gleft = Instantiate(ItemPrefab, chunk.transform, false);
+            Vector3 desiredPosition = chunk.GetComponent<Chunk>().getRandomPosforItem();
+            Debug.LogWarning(desiredPosition);
+            gleft.GetComponent<Item>().Init(baselayer, desiredPosition);
+            GameObject gright = Instantiate(ItemPrefab, chunk.transform, false);
+            desiredPosition.x = -1 * desiredPosition.x;
+            gright.GetComponent<Item>().Init(baselayer, desiredPosition);
+            chunkCounterforItem = 0;
+        }
         baselayer -= 50;
+        chunkCounterforItem++;
     }
     void shuffle()
     {

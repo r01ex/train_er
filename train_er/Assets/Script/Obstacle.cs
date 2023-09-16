@@ -35,22 +35,16 @@ public class Obstacle : MonoBehaviour
             switch (difficulty - PlayerScript.Instance.playerLevel)
             {
                 case 4:
-                    PlayerScript.Instance.changePlayerHealth(-80);
+                    PlayerScript.Instance.changePlayerHealth(-50);
                     break;
                 case 3:
                     PlayerScript.Instance.changePlayerHealth(-30);
                     break;
                 case 2:
-                    //qte
-                    CircleQTE.Instance.startQTE(40, 1);
-                    CircleQTE.Instance.onQTEFail.AddListener(delegate { PlayerScript.Instance.changePlayerHealth(-10); });
-                    CircleQTE.Instance.onQTESuccess.AddListener(kick);
+                    PlayerScript.Instance.changePlayerHealth(-10);
                     break;
                 case 1:
-                    //qte
-                    CircleQTE.Instance.startQTE(40, 1.5f);
-                    CircleQTE.Instance.onQTEFail.AddListener(delegate { PlayerScript.Instance.changePlayerHealth(-5); });
-                    CircleQTE.Instance.onQTESuccess.AddListener(kick);
+                    PlayerScript.Instance.changePlayerHealth(-5);
                     break;
                 default:
                     kick();

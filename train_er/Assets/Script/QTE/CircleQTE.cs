@@ -19,6 +19,8 @@ public class CircleQTE : MonoBehaviour
     float successRot;
     public UnityEvent onQTESuccess;
     public UnityEvent onQTEFail;
+    public UnityEvent onQTEend;
+    [SerializeField] int QTEstopCnt = 0;
     private void Awake()
     {
         if (Instance == null) { Instance = this; }
@@ -38,8 +40,10 @@ public class CircleQTE : MonoBehaviour
     {
         sliderSpinner.transform.rotation = Quaternion.Euler(0, 0, 180);
         PlayerControl.Instance.isQTE = true;
+        QTEstopCnt = 0;
         onQTEFail.RemoveAllListeners();
         onQTESuccess.RemoveAllListeners();
+        onQTEend.RemoveAllListeners();
         QTEcanvas.SetActive(true);
         selectSuccessArea(areaAngle);
         startSpin(spintime);
@@ -73,7 +77,8 @@ public class CircleQTE : MonoBehaviour
             sliderSpinner.transform.Rotate(new Vector3(0, 0, -(360 / spintime) * Time.unscaledDeltaTime));
             duration += Time.unscaledDeltaTime;
         }
-        onQTEFail.Invoke();
+        //onQTEFail.Invoke();
+        onQTEend.Invoke();
         Time.timeScale = 1;
         QTEcanvas.SetActive(false);
         PlayerControl.Instance.isQTE = false;
@@ -81,33 +86,37 @@ public class CircleQTE : MonoBehaviour
     public void stop()
     {
         Debug.Log("stop spin called");
-        StopCoroutine(spin);
-        Time.timeScale = 1;
-        if (sliderSuccessParent1.transform.rotation.z > sliderSpinner.transform.rotation.z && sliderSuccessParent1.transform.rotation.z-sliderSuccess1.value*360 < sliderSpinner.transform.rotation.z - sliderSpinner.value * 360)
+        if (QTEstopCnt < 3)
         {
-            onQTESuccess.Invoke();
-            Debug.Log("slider1!");
-            //success
+            if (sliderSuccessParent1.transform.rotation.z > sliderSpinner.transform.rotation.z && sliderSuccessParent1.transform.rotation.z - sliderSuccess1.value * 360 < sliderSpinner.transform.rotation.z - sliderSpinner.value * 360)
+            {
+                onQTESuccess.Invoke();
+                Debug.Log("slider1!");
+                //success
+            }
+            if (sliderSuccessParent2.transform.rotation.z > sliderSpinner.transform.rotation.z && sliderSuccessParent2.transform.rotation.z - sliderSuccess2.value * 360 < sliderSpinner.transform.rotation.z - sliderSpinner.value * 360)
+            {
+                onQTESuccess.Invoke();
+                Debug.Log("slider2!");
+                //success
+            }
+            if (sliderSuccessParent3.transform.rotation.z > sliderSpinner.transform.rotation.z && sliderSuccessParent3.transform.rotation.z - sliderSuccess3.value * 360 < sliderSpinner.transform.rotation.z - sliderSpinner.value * 360)
+            {
+                onQTESuccess.Invoke();
+                Debug.Log("slider3!");
+                //success
+            }
+            else
+            {
+                onQTEFail.Invoke();
+                Debug.Log("fail!");
+                //fail
+            }
         }
-        if (sliderSuccessParent2.transform.rotation.z > sliderSpinner.transform.rotation.z && sliderSuccessParent2.transform.rotation.z - sliderSuccess2.value * 360 < sliderSpinner.transform.rotation.z - sliderSpinner.value * 360)
-        {
-            onQTESuccess.Invoke();
-            Debug.Log("slider2!");
-            //success
-        }
-        if (sliderSuccessParent3.transform.rotation.z > sliderSpinner.transform.rotation.z && sliderSuccessParent3.transform.rotation.z - sliderSuccess3.value * 360 < sliderSpinner.transform.rotation.z - sliderSpinner.value * 360)
-        {
-            onQTESuccess.Invoke();
-            Debug.Log("slider3!");
-            //success
-        }
-        else
-        {
-            onQTEFail.Invoke();
-            Debug.Log("fail!");
-            //fail
-        }
-        QTEcanvas.SetActive(false);
-        PlayerControl.Instance.isQTE = false;
+        QTEstopCnt++;
+    }
+    public void setCenterSprite(Sprite sprite)
+    {
+        itemimgPlaceholder.texture = sprite.texture;
     }
 }

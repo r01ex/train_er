@@ -69,6 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftdoor: {fileID: 1771952213141734385}
   rightdoor: {fileID: 1771952213634082398}
+  animator: {fileID: 1771952212492974067}
 --- !u!1 &1771952213141734387
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: PlayerAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 4096
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 1
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: ba1fd721242ca2549b2e75066784fc0a, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 6fca8f232a0299348a7ecf2666f6f772, type: 3}
+  - {fileID: 21300000, guid: 03c16e638901bbf4e926b419452c4d31, type: 3}
+  - {fileID: 21300000, guid: 3dfc69257fe0c3940b615ba3535c1a16, type: 3}
+  - {fileID: 21300000, guid: 893432c79491c754bbdada8f9eee365b, type: 3}
+  - {fileID: 21300000, guid: 24f908f80afef1645809f0a3675d9273, type: 3}
+  - {fileID: 21300000, guid: 5e16b82db38e73c46b4f70c5e32bed6a, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - 1920x1080_ingame_character_01_2
+  - 1920x1080_ingame_character_01_4
+  - 1920x1080_ingame_character_01_1
+  - 1920x1080_ingame_character_01_6
+  - 1920x1080_ingame_character_01_5
+  - 1920x1080_ingame_character_01_3
+  m_RenderDataMap: {}
+  m_Tag: PlayerAtlas
+  m_IsVariant: 0
