@@ -59,6 +59,9 @@ TagManager:
   - name: Player
     uniqueID: 2169322815
     locked: 0
+  - name: objoverPlayer
+    uniqueID: 3996394069
+    locked: 0
   - name: uioverPlayer
     uniqueID: 3189525311
     locked: 0

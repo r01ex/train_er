@@ -26,6 +26,14 @@ public class Obstacle : MonoBehaviour
     {
         
     }
+    private void Update()
+    {
+        if(this.transform.position.y<-8.8f)
+        {
+            bodySpriteRenderer.sortingLayerName = "objoverPlayer";
+            handSpriteRenderer.sortingLayerName = "objoverPlayer";
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")

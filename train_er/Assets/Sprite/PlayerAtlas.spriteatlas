@@ -53,15 +53,23 @@ SpriteAtlas:
   - {fileID: 21300000, guid: 6fca8f232a0299348a7ecf2666f6f772, type: 3}
   - {fileID: 21300000, guid: 03c16e638901bbf4e926b419452c4d31, type: 3}
   - {fileID: 21300000, guid: 3dfc69257fe0c3940b615ba3535c1a16, type: 3}
+  - {fileID: 21300000, guid: 80176526ed97ed944b88d5a7e9bea748, type: 3}
   - {fileID: 21300000, guid: 893432c79491c754bbdada8f9eee365b, type: 3}
   - {fileID: 21300000, guid: 24f908f80afef1645809f0a3675d9273, type: 3}
+  - {fileID: 21300000, guid: 495c3d1a0d2e02b4c89294b80bfd449a, type: 3}
+  - {fileID: 21300000, guid: e509320bcdf80644dbfebfd638165d7a, type: 3}
+  - {fileID: 21300000, guid: 12503ccbfae7588499f9df210c4105b6, type: 3}
   - {fileID: 21300000, guid: 5e16b82db38e73c46b4f70c5e32bed6a, type: 3}
   m_PackedSpriteNamesToIndex:
   - 1920x1080_ingame_character_01_2
   - 1920x1080_ingame_character_01_4
   - 1920x1080_ingame_character_01_1
+  - 1920x1080_ingame_character_01_item_1
   - 1920x1080_ingame_character_01_6
   - 1920x1080_ingame_character_01_5
+  - 1920x1080_ingame_character_01_punch_1
+  - 1920x1080_ingame_character_01_punch_2
+  - 1920x1080_ingame_character_01_item_2
   - 1920x1080_ingame_character_01_3
   m_RenderDataMap: {}
   m_Tag: PlayerAtlas

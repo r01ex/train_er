@@ -57,6 +57,7 @@ public class DoorQTE : MonoBehaviour
     public void startTakingInput()
     {
         Debug.Log("slide now");
+        Debug.Log(doorimage.color);
         StartCoroutine(slide());
     }
     IEnumerator slide()
@@ -66,7 +67,6 @@ public class DoorQTE : MonoBehaviour
         float dragDistance = Screen.height * 15 / 100;  //minimum distance for a swipe to be registered
         while (true)
         {
-            Debug.Log("wating slide");
             if (Input.touchCount == 1)
             {
                 Touch touch = Input.GetTouch(0);
@@ -127,6 +127,7 @@ public class DoorQTE : MonoBehaviour
     }
     void checkSlide(int input)
     {
+        anim.SetTrigger("goStart");
         doornum++;
         if (correctSwipe==input)
         {

@@ -9,7 +9,7 @@ public class Item : MonoBehaviour
     [SerializeField] List<Sprite> itemspriteList;
     [SerializeField] List<Sprite> itemcenterGUIList;
     int successCnt = 0;
-    int[] itemChances = { 40, 60, 75, 90, 100 };
+    int[] itemChances = { 40, 60, 80, 90, 100 };
     public void Init(int layer, Vector3 v)
     {
         this.transform.localPosition = v;
